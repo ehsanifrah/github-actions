@@ -1,0 +1,22 @@
+name: Learning Github Actions
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build -t nginx-image .
+    - name: Run Container
+      run: docker run --name nginx-container -d nginx-image
+    - name: Show Containers
+      run: docker ps
